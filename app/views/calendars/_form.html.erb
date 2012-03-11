@@ -1,0 +1,48 @@
+<%= form_for([@user, @calendar]) do |f| %>
+  <% if @calendar.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@calendar.errors.count, "error") %> prohibited this calendar from being saved:</h2>
+
+      <ul>
+      <% @calendar.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start_date %><br />
+    <%= f.date_select :start_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.date_select :end_date %>
+  </div>
+
+	<% if current_user.role?(:admin) %>
+	  <div class="field">
+	    <%= f.label :advisor_editable %><br />
+	    <%= f.check_box :advisor_editable %>
+	  </div>
+	<% else %>
+		
+		<% if (params[:action] == 'new') ||  (params[:action] == 'create')%>
+
+			<div class="field">
+			  <%= f.label :advisor_editable %><br />
+			  <%= f.check_box :advisor_editable, :checked => true %>
+	  	</div>
+			<% end %>
+	<% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

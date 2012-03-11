@@ -1,0 +1,27 @@
+<script>
+	$(function() {
+		$( "#calendar" ).advisingCalendar( { 
+			truth: false, 
+			title: "<%=@calendar.title%>", 
+			csrf :'<%= form_authenticity_token.to_s %>',
+			is_owner: <%= current_user.role?(:admin) || @calendar.advisor_id == current_user.id %>,
+			calendar_id: <%=@calendar.id%>,
+			startDate: new Date(<%="#{@calendar.start_date.year}, #{@calendar.start_date.month - 1}, #{@calendar.start_date.day}" %>),
+			daysToShow: <%= (@calendar.end_date - @calendar.start_date).to_i %>
+			<%if(current_user.role?(:student))%>
+				, ra_id: <%=@registration_ability.id%>
+				<% end %>
+		 } );
+
+
+	});
+</script>
+<div id='nav-bar'>
+		<%= user_history %>
+		<% if can? :edit, RegistrationAbility %>
+			<%= link_to "View Students Registered to this Calendar", advisor_calendar_registration_abilities_path(@calendar.advisor.id, @calendar.id) %>
+		<% end %>
+</div>
+<div class="clear"></div>
+
+<div id="calendar"></div>

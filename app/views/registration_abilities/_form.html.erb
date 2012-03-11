@@ -1,0 +1,44 @@
+
+<div class="ra_form">
+<%if !@registration_ability.new_record? && @advising_period.advisor_editable%>
+	<%=link_to 'Remove user from this calendar', advisor_calendar_registration_ability_path(@advisor, @advising_period, @registration_ability), :method => :delete %>
+<% end %>
+	
+	<% formUrl = {:url => advisor_calendar_registration_ability_path(params[:advisor_id], params[:calendar_id], @registration_ability)} %>
+	<%= form_for([@user, @advising_period, @registration_ability], formUrl) do |f| %>
+
+  <% if @registration_ability.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@registration_ability.errors.count, "error") %> prohibited this gesture from being saved:</h2>
+
+      <ul>
+      <% @registration_ability.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<table>
+		<tr>
+			<%if @registration_ability.new_record? %>
+			<td>
+				<%= f.label :user_id, "Add a student to this calendar" %>
+				<br />		
+				<%= f.select :user_id, @students.map{ |p| [p.last_name << ", " << p.first_name, p.id] } %>
+			</td>
+			<% else %>
+				<td>
+					<%= f.label :number_of_events, "Number of events allowed for " << @registration_ability.user.first_name << " " << @registration_ability.user.last_name %>
+				</td>
+				<td>
+					<%= f.number_field :number_of_events %>
+				</td>
+			<% end %>
+			<td>
+				<%= f.submit  "Add" %>
+			</td>
+		</tr>
+	</table>
+<% end %>
+<div class='clear'></div>
+</div>

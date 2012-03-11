@@ -1,0 +1,35 @@
+<script>
+	jQuery(document).ready(function(){
+		$('#tabs').tabs();
+	});
+</script>
+
+	<div id='devise' >
+	<h2>Sign in</h2>
+	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+		<div><%= f.label :email %><br />
+		<%= f.email_field :email %></div>
+
+		<div><%= f.label :password %><br />
+		<%= f.password_field :password %></div>
+
+		<div><%= f.submit "Sign in" %></div>
+	<% end %>
+
+	</div>
+
+<div id="tabs" style="width:30%;margin:15px auto;">
+	<ul>
+		<li><a href="#tabs-1">Students</a></li>
+		<li><a href="#tabs-2">Advisors</a></li>
+	</ul>
+	<div id="tabs-1">
+		<p>To login, use your student.umass.edu email and your 8-digit student id as a password.</p>
+	</div>
+	<div id="tabs-2">
+		<p>Please follow the instructions provided to you by the system administrator.</p>
+	</div>
+	
+</div>
+
+

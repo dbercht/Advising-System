@@ -1,0 +1,23 @@
+<script>
+$(document).ready(function() { 
+			jQuery('.tablesorter').tablesorter( { 
+        // sort on the first column and third column, order asc 
+        sortList: [[0,0]] 
+    	});
+			
+			
+      
+}); 
+</script>
+<%= link_to 'Back to Calendar', advisor_calendar_path(params[:advisor_id], params[:calendar_id]) %>
+<table class="tablesorter">
+	<thead>
+		<tr>
+			<th>
+				Student
+			</th>
+		</tr>
+	</thead>
+	<%= render :partial => 'registration_ability', :collection => @registration_abilities %>
+	
+</table>

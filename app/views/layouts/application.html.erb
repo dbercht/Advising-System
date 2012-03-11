@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AdvisingApplication</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<script>
+	jQuery(document).ready(function(){
+		$('#nav-bar a').button();
+      $("#devise_flashes").delay(3000).hide("blind", {}, 1000);
+		});
+</script>
+<body>
+	<div id='app-header' class='ui-corner-bottom'>
+		<div class='header'>
+			<div class='user-nav'>
+				<% if current_user %>
+					<%= current_user.to_title %>
+					<%=link_to 'Edit', edit_user_registration_path, :class=>'header-button ' %>
+					<%=link_to 'Logout', destroy_user_session_url, :method => :delete, :class=>'header-button' %>
+				<% else %>
+					<%= link_to 'Login', new_user_session_url %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	
+	<div id='devise_flashes'>
+			<%if alert %>
+				<div class="ui-widget">
+					<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
+						<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+						 <%= alert %></p>
+					</div>
+				</div>
+			<% end %>
+      <%if notice %>
+				<div class="ui-widget">
+					<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+						<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+						<%= notice %></p>
+					</div>
+				</div>
+			<%end %>
+	</div>
+	<div id="container" class='ui-corner-all'>
+		<%= yield %>
+	</div>
+	<div class='clear'></div>
+	<div id='footer' class='ui-corner-top'></div>
+</body>
+</html>

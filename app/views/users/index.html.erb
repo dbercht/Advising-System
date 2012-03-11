@@ -1,0 +1,52 @@
+
+<script>
+$(document).ready(function() { 
+			jQuery('.tablesorter').tablesorter( { 
+        // sort on the first column and third column, order asc 
+        sortList: [[0,0]] 
+    	});
+			
+			
+      
+}); 
+  
+</script>
+<div id='user_selection'>
+	<%if params[:controller] == 'users' %>
+		<%= link_to 'Students', students_path %>
+		<%= link_to 'Advisors', advisors_path %>
+	<% else %>
+		<%= link_to 'Users', users_path %>
+	<% end %>
+</div>
+<%= link_to 'New User', new_user_path %>
+
+<%=link_to "Import Advisors", new_advisor_path %>
+<%=link_to "Create Advising Period/Import Students", new_advising_period_path %>
+
+<table class="tablesorter">
+	<thead>
+		<tr>
+			<th>
+				Email
+			</th>
+			<th>
+				Last Name
+			</th>
+			<th>
+				First Name
+			</th>
+			<th>
+				Role
+			</th>
+			<% if params[:controller] == 'calendars' %>
+				<th>
+					User Registration Ability
+				</th>
+			<% end %>
+				<th>
+				</th>
+		</tr>
+	</thead>
+	<%= render :partial => 'user', :collection => @users %>
+</table>

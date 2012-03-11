@@ -1,0 +1,18 @@
+<tr>
+	<td>
+			<%="#{registration_ability.user.last_name}, #{registration_ability.user.first_name}"%> 
+	</td>
+
+	<td>
+		<%= registration_ability.events.size %>
+	</td>
+	<td>
+		<%= registration_ability.number_of_events %>
+	</td>
+<%if can? :delete, registration_ability%>
+	<td>
+<%=link_to "Edit", edit_advisor_calendar_registration_ability_path(registration_ability.user, registration_ability.calendar, registration_ability) %> | 
+		<%= link_to 'Remove', advisor_calendar_registration_ability_path(params[:advisor_id], params[:calendar_id] , registration_ability), :method => :delete, :confirm => "Are you sure you want to delete this user from this calendar?" %>
+	</td>
+<%end%>
+</tr>

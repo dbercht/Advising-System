@@ -1,0 +1,26 @@
+<h2>Creating advisors from csv</h2>
+Before uploading a file, make sure that:
+<ol>
+	<li>First row is titled 'last_name'</li>
+	<li>Second row is titled 'first_name'</li>
+	<li>Third row is titled 'email'</li>
+</ol>
+
+All advisors will be created with the default password 'advising_system', and their logins are their email addresses.
+
+<%= form_tag advisors_url, :multipart => true do %>
+	<table>
+		<tr>
+				<td>
+				<%=label :file, 'Advisor CSV file' %>
+				</td><td>
+				<%= file_field_tag :file%> 
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<%= submit_tag 'Submit CSV', :confirm => "This will delete all current advisors. Are you sure you want to continue?"%>
+				</td>
+			</tr>
+	</table>
+<% end %>

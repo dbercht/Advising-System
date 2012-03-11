@@ -1,0 +1,142 @@
+<h2>Creating an advising Period</h2>
+<%= link_to 'New User', new_user_path %>
+<script>
+$(document).ready(function() 
+    { 
+			jQuery('.tablesorter').tablesorter( { 
+        // sort on the first column and third column, order asc 
+        sortList: [[0,0]] 
+    	}); 
+      
+}); 
+  
+</script>
+<% if @advisors %>
+	<% if flash[:error] %>
+		Please modify the file to fix the following errors.
+		<%= flash[:error] %>
+	<% end %>
+	The following advisors were not matched with any instance of the csv file.
+	<table class="tablesorter">
+		<thead>
+			<tr>
+				<th>
+					Email
+				</th>
+				<th>
+					Last Name
+				</th>
+				<th>
+					First Name
+				</th>
+				<th>
+					Role
+				</th>
+				<% if params[:controller] == 'calendars' %>
+					<th>
+						User Registration Ability
+					</th>
+				<% end %>
+					<th>
+					</th>
+					<th>
+					</th>
+			</tr>
+		</thead>
+		<%= render :partial => 'users/user', :collection => @advisors %>
+	</table>
+<% end %>
+<p>The following depicts a sample excel file to upload.</p>
+<p>The required fields are:
+	<ol>
+		<li>Student id (to be used as their default password)</li>
+		<li>Student email (to be used as their default login)</li>
+		<li>Student name (Formatted {last_name, first_name}, e.g. 'Doe, John') </li>
+		<li>Advisor name (Formatted {first_name last_name}, e.g. 'John Doe'). <br /><b>Make sure that all advisors have already been created and that their names match the one on the incoming csv file</b>.<br /> If an advisor referenced here is not found in the system, you will have to re-input this form.<br /> The advisor's email can also be used instead of the advisors full name (and recommended for better results)</li>
+
+	</ol>
+</p>
+<p>The rows do <b>not</b> need to be in order, however, make sure to properly map them to the proper row, as shown in the form below.</p>
+
+<%= image_tag 'sampleexcel.gif' %>
+
+<%= form_tag advising_period_url, :multipart => true do %>
+
+<table>
+	<tr>
+		<td>
+			Advising Period Title
+		</td>
+		<td>
+			<%=text_field_tag :advising_period_title%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Start Date
+		</td>
+		<td>
+			<%=select_date Date.today, :prefix => :start_date%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			End Date
+		</td>
+		<td>
+			<%=select_date Date.today, :prefix => :end_date%>
+		</td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<td>
+		<%=label :student_id_row, "Student ID Row (Empl ID)" %>
+		</td>
+		<td>
+		<%=number_field_tag :student_id_row, 1, :width => 1%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<%=label :student_name_row, "Student Name Row (name)" %>
+		</td><td>
+		<%=number_field_tag :student_name_row, 2 %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<%=label :student_email_row, "Student Email Row (Email ID) " %>
+		</td><td>
+		<%=number_field_tag :student_email_row, 5%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<%=label :advisor_name_row, "Advisor Name Row(Plan 1 Advisor 1)" %>
+		</td><td>
+		<%=number_field_tag :advisor_name_row, 6%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<%=label :advisor_reference_email, "Advisor Reference is email?" %>
+		</td><td>
+		<%=check_box_tag :advisor_reference_email%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<%=label :file, 'Advisor/Advisee CSV file' %>
+		</td><td>
+		<%= file_field_tag :file%> 
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<%= submit_tag 'Submit CSV'%>
+		</td>
+	</tr>
+</table>
+<% end %>

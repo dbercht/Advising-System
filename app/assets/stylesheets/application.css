@@ -1,0 +1,126 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+*/
+body{
+	margin: 0px auto;
+	}
+
+a{
+	.9em;
+}
+button{
+	font-size: .9em;
+}
+
+.right{
+ float: right;
+}
+
+.left{
+	float: left;
+}
+#container{
+	width: 90%;
+	min-height: 480px;
+
+	margin: 5px auto;
+	background:#FFF;
+	padding: 5px;
+	border: 1px solid #bbb;
+	overflow: auto;
+}
+
+#app-header{
+	padding: 5px;
+	background: #8dbdd8;
+	color: white;
+}
+
+#app-header p, #app-header a{
+	color: white;
+}
+
+#footer{
+	background: #bdbddb;
+	height: 80px;
+}
+
+.header-background{
+
+}
+
+.header{
+	padding: 10px;
+	height: 20px;
+}
+
+.bottom-shadow{
+	width: 100%;
+	height: 5px;
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+.user-nav{
+	margin-right: 10%;
+	text-align:right;
+}
+
+#nav-bar {
+	display: inline;
+	width: 80%;
+	margin: 0px auto;
+	text-align: center;
+}
+
+#nav-bar a{
+	margin: 0px auto;
+	text-align: center;
+}
+
+.ra_form_container{
+	margin: 10px auto;
+	text-align: center;
+	border: 1px solid #aaa;
+	width: 30%;
+}
+
+.ra_form_container table{
+	margin: 0px auto;
+}
+
+.user-table, .calendar-table{
+	width: 80%;
+	margin: 0px auto;
+}
+
+*.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   user-select: none;
+}
+
+.hidden{
+	visibility: hidden;
+}
+
+#devise{
+	text-align:center;
+	margin: 0px auto;
+}

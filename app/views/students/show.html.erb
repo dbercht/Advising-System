@@ -1,0 +1,26 @@
+<script>
+	$(document).ready(function() { 
+				jQuery('.tablesorter').tablesorter( { 
+		      // sort on the first column and third column, order asc 
+		      sortList: [[0,0]] 
+		  	});
+		    
+	});
+</script>
+
+<%if current_user.role?(:admin) %>
+	<div id="nav-bar">
+		<%= link_to 'Home', users_path %>
+	</div>
+<% end %>
+<div class='calendar-table'>
+	<table class="tablesorter">
+		<thead>
+			<tr>
+				<th>Calendar Name</th>
+				<th>Calendar Date</th>
+			</tr>
+		</thead>
+<%= render :partial => 'calendars/calendars', :collection => @calendars, :as => :calendar %>
+</table>
+</div>

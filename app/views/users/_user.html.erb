@@ -1,0 +1,30 @@
+<tr>
+	<td>
+		<%=link_to user.email, user_path(user) %>
+	</td>
+	<% if params[:controller] == 'calendars' %>
+		<td>
+			<%= link_to 'Edit Registration Ability Preferences', edit_user_calendar_registration_ability_path(user, params[:id]) %>
+		</td>
+	<% end %>
+
+	<td>
+		 <%= user.last_name %>
+	</td>
+	<td>
+		 <%= user.first_name %>
+	</td>
+	<td>
+		 <%= user.role %>
+	</td>
+	<% if can? :edit, :user %>
+		<td>
+			<%=link_to 'Edit', edit_user_path(user) %>
+		</td>
+	<% end %>
+	<%if can? :delete, :user %>
+<td>
+		<%= link_to 'Delete User', user_path(user), :method => 'delete' %>
+</td> 
+	<%end%>
+</tr>

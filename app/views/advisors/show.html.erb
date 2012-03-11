@@ -1,0 +1,29 @@
+<script>
+	$(document).ready(function() { 
+				jQuery('.tablesorter').tablesorter( { 
+		      // sort on the first column and third column, order asc 
+		      sortList: [[0,0]] 
+		  	});
+		    
+	});
+</script>
+<div id="nav-bar">
+
+<%if current_user.role?(:admin)%>
+ 	<%= link_to 'Home', users_path %>
+<% end %>
+	<%= link_to 'Create new calendar', new_advisor_calendar_path(params[:id]) %>
+</div>
+
+<div class='calendar-table'>
+	<table class="tablesorter">
+		<thead>
+			<tr>
+				<th>Calendar Name</th>
+				<th>Calendar Date</th>
+			</tr>
+		</thead>
+
+		<%= render :partial => 'calendars/calendars', :collection => @calendars, :as => :calendar %>
+	</table>
+</div>

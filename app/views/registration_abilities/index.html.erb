@@ -1,0 +1,38 @@
+<script>
+$(document).ready(function() { 
+			jQuery('.tablesorter').tablesorter( { 
+        // sort on the first column and third column, order asc 
+        sortList: [[0,0]] 
+    	});
+      
+}); 
+</script>
+<div id='nav-bar'>
+	<%= link_to 'Back to Calendar', advisor_calendar_path(params[:advisor_id], params[:calendar_id]) %>
+</div>
+
+<div class='ra_form_container ui-corner-all' >
+	<%= render :partial => 'form' %>
+</div>
+
+<div class="clear"></div>
+
+<div class="user-table">
+	<table class="tablesorter">
+		<thead>
+			<tr>
+				<th>
+					Student
+				</th>
+				<th>
+					# of appointments
+				</th>
+				<th>
+					# of allowed appointments
+				</th>
+			</tr>
+		</thead>
+		
+		<%= render :partial => 'registration_ability', :collection => @registration_abilities %>
+	</table>
+</div>
