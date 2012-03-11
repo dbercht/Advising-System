@@ -11,10 +11,6 @@ class ApplicationController < ActionController::Base
 		end
   end
 
-	rescue_from Exception do |exception|
-		logger.error "#{Time.now} : #{exception.message}"
-	end
-
   private
 
   # Overwriting the sign_out redirect path method
