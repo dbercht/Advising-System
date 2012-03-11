@@ -8,8 +8,11 @@ class RegistrationAbilitiesController < ApplicationController
 		@registration_ability = @calendar.registration_abilities.build
 		@registration_abilities = @calendar.registration_abilities(:include => [:user])
 		respond_to do |format|
-			format.html do @students = Student.all(:order => 'last_name') - @calendar.users end
 			format.json do render :json => @registration_abilities.order('users.last_name').as_json(:include => [:user, :events]) end
+			format.html do 
+				@students = Student.all(:order => 'last_name') - @calendar.users
+				render "index" 
+				end
 		end
 	end
 
