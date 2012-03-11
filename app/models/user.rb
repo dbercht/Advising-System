@@ -17,6 +17,9 @@ class User < ActiveRecord::Base
 
 	has_many :registration_abilities, :include => [:events], :dependent => :delete_all
 	has_many :open_calendars, :through => :registration_abilities,  :source => 'calendar'
+	
+
+
 
 	def role
 		return type
@@ -33,5 +36,7 @@ class User < ActiveRecord::Base
 		end
 		return @a
 	end
+
+
 
 end

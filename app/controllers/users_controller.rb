@@ -3,11 +3,10 @@ class UsersController < ApplicationController
 	skip_before_filter :login_required, :only=>[:new, :create]
 
   def index
-    @users = User.all(:order => [:type, :email])
   end
   
 	def show
-		@user = User.find(params[:id])		
+		@user = User.find(params[:id])
 		if !@user.role?(:admin)
 			redirect_to :controller => @user.type.downcase.pluralize.to_sym, :action => 'show', :id => params[:id]
 		else

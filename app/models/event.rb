@@ -16,4 +16,14 @@ class Event < ActiveRecord::Base
 		end
 	end
 
+	def after_now?
+		if((Time.at(starttime.to_i/1000)+4.hours) > (Time.now))
+			return true
+		end
+	end
+	
+	def event_starttime
+		return (Time.at(starttime.to_i/1000)+4.hours).strftime("%l:%M %P on %a %b %e, %Y")
+	end
+
 end

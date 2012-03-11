@@ -13,11 +13,15 @@
 */
 body{
 	margin: 0px auto;
+//	background: #224;
 	}
 
-a{
-	.9em;
+h2, h3, h4{
+text-align:center;
+padding: 2px;
+text-decoration:underline;
 }
+
 button{
 	font-size: .9em;
 }
@@ -42,7 +46,8 @@ button{
 
 #app-header{
 	padding: 5px;
-	background: #8dbdd8;
+	//background: #8dbdd8;
+	background: #666;
 	color: white;
 }
 
@@ -51,7 +56,7 @@ button{
 }
 
 #footer{
-	background: #bdbddb;
+	background: #666;
 	height: 80px;
 }
 
@@ -77,8 +82,22 @@ button{
 }
 
 .user-nav{
-	margin-right: 10%;
 	text-align:right;
+}
+
+#admin-nav{
+	width: 90%;
+	margin: 0px auto;
+}
+
+#admin-nav div{
+	border: 1px solid #ddd;
+	text-align:center;
+	width: 33%;
+	height: 150px;
+	margin: 0px auto;
+	padding-bottom: 5px;
+	float: left;
 }
 
 #nav-bar {
@@ -120,7 +139,29 @@ button{
 	visibility: hidden;
 }
 
-#devise{
+#devise, #tabs{
+	width: 30%;
 	text-align:center;
-	margin: 0px auto;
+	margin: 0px auto;;
 }
+
+#devise_flashes{
+	text-align:center;
+	margin: 0px auto;;
+	position: fixed;
+	z-index:10;
+	float:right;
+}
+#calendar-list{
+	width: 60%;	
+}
+
+#event-list{
+	width: 30%;
+}
+
+#calendar-new{
+	margin: 0px auto;
+	text-align: center;
+}
+

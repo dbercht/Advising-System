@@ -1,3 +1,4 @@
+<%title @student.to_title %>
 <script>
 	$(document).ready(function() { 
 				jQuery('.tablesorter').tablesorter( { 
@@ -7,20 +8,49 @@
 		    
 	});
 </script>
-
+<h2><%=@student.to_title%></h2>
 <%if current_user.role?(:admin) %>
 	<div id="nav-bar">
 		<%= link_to 'Home', users_path %>
 	</div>
+	<div class='clear'></div>
 <% end %>
-<div class='calendar-table'>
-	<table class="tablesorter">
-		<thead>
-			<tr>
-				<th>Calendar Name</th>
-				<th>Calendar Date</th>
-			</tr>
-		</thead>
-<%= render :partial => 'calendars/calendars', :collection => @calendars, :as => :calendar %>
-</table>
+<div id='calendar-list' class='left'>
+	<h2>Active Calendars</h2>
+	<div class='calendar-table'>
+		<table class="tablesorter">
+			<thead>
+				<tr>
+					<th>Calendar Name</th>
+					<th>Calendar Date</th>
+				</tr>
+			</thead>
+		<%= render :partial => 'calendars/calendars', :collection => @calendars, :as => :calendar %>
+	</table>
+	</div>
+</div>
+<div id='event-list' class='left'>
+	<% e = 0%>
+	<%@registration_abilities.each{ |r| e = e + r.events.size} %>
+	<%if e > 0 %>
+		<h2>Upcoming events</h2>
+		<ol>
+			<%@registration_abilities.each do |r|%>
+				<% r.events.each do |e| %>
+
+					<%if(e.after_now?)%>
+						<li style="text-align:right;"><%=e.event_starttime%> with <%=r.calendar.advisor.to_title%></li>
+					<%end %>
+				<%end%>
+			<% end %>
+		</ol>
+		<% else %>
+	<h2>No events</h2>
+				<div class="ui-widget">
+					<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+						<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+						You have no upcoming appointments</p>
+					</div>
+				</div>
+		<%end%>
 </div>

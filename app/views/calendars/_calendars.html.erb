@@ -2,26 +2,32 @@
 <div id="calendar_listing">
 	<% if params[:controller] == 'advisors' %>
 		<td>
-			<%= link_to calendar.c_title, advisor_calendar_path(params[:id], calendar.id) %>
+			<%=  calendar.c_title %>
 		</td>
 
 		<td>
 			<span class="hidden right"><%=calendar.start_date %></span>
 			<%= calendar.date_range %>
 		</td>
+		<td>
+			<%= link_to "View", advisor_calendar_path(params[:id], calendar.id) %>
+		</td>
 		<% if can? :edit, calendar %>
 			<td>
-				<%= link_to "Edit Calendar Information", edit_advisor_calendar_path(calendar.advisor.id, calendar.id) %>
+				<%= link_to "Edit", edit_advisor_calendar_path(calendar.advisor.id, calendar.id) %>
 			</td>
 		<% end %>
 
 	<% else %>
 		<td>
-			<%= link_to calendar.c_title, user_calendar_path(params[:id], calendar.id) %>
+			<%= calendar.c_title %>
 		</td>
 		<td>
 			<span class="hidden right"><%=calendar.start_date %></span>
 			<%= calendar.date_range %>
+		</td>
+		<td>
+			<%= link_to "View", user_calendar_path(params[:id], calendar.id) %>
 		</td>
 		<% if can? :edit, RegistrationAbility.where(:calendar_id => calendar.id, :user_id => params[:id]) %>
 			<td>

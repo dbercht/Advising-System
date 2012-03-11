@@ -3,8 +3,11 @@
 <%if !@registration_ability.new_record? && @advising_period.advisor_editable%>
 	<%=link_to 'Remove user from this calendar', advisor_calendar_registration_ability_path(@advisor, @advising_period, @registration_ability), :method => :delete %>
 <% end %>
-	
-	<% formUrl = {:url => advisor_calendar_registration_ability_path(params[:advisor_id], params[:calendar_id], @registration_ability)} %>
+			<%if @registration_ability.new_record? %>
+				<% formUrl = {:url => advisor_calendar_registration_abilities_path(params[:advisor_id], params[:calendar_id])} %>
+			<% else %>
+				<% formUrl = {:url => advisor_calendar_registration_ability_path(params[:advisor_id], params[:calendar_id], @registration_ability), :method => 'put'} %>
+			<% end %>
 	<%= form_for([@user, @advising_period, @registration_ability], formUrl) do |f| %>
 
   <% if @registration_ability.errors.any? %>

@@ -28,7 +28,8 @@ class AdvisorsController < UsersController
 
   def show
     @advisor = Advisor.find(params[:id], :include => :calendars)
-		@calendars = @advisor.advising_periods
+		@calendars = @advisor.advising_periods.includes(:events).order('events.starttime')
+		@events = Event.joins('INNER JOIN calendars on calendars.id = events.calendar_id').where('calendars.advisor_id = ? AND events.registration_ability_id IS NOT NULL', @advisor.id).order('events.starttime').joins('INNER JOIN calendars_users ON events.registration_ability_id = calendars_users.id').joins('INNER JOIN users ON calendars_users.user_id = users.id')
   end
 
 	def index

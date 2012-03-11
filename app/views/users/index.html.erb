@@ -1,4 +1,4 @@
-
+<%title "Users" %>
 <script>
 $(document).ready(function() { 
 			jQuery('.tablesorter').tablesorter( { 
@@ -11,42 +11,59 @@ $(document).ready(function() {
 }); 
   
 </script>
-<div id='user_selection'>
-	<%if params[:controller] == 'users' %>
-		<%= link_to 'Students', students_path %>
-		<%= link_to 'Advisors', advisors_path %>
-	<% else %>
-		<%= link_to 'Users', users_path %>
-	<% end %>
+
+<div id='admin-nav'>
+	<h2>Admin actions</h2>
+	<div class='user_selection ui-corner-all'>
+		<h3>Show users by role</h3>
+		<%if params[:controller] == 'users' %>
+			<%= link_to 'Students', students_path %>
+			<%= link_to 'Advisors', advisors_path %>
+		<% else %>
+			<%= link_to 'Home', users_path %>
+			<br /><br />
+		<% end %>
+	</div>
+	<div class='ui-corner-all'>
+		<h3>Create individual user</h3>
+		
+		<%= link_to 'New User', new_user_path %><br />
+		<br />
+	</div>
+	<div class='ui-corner-all'>
+
+		<h3 >Create bulk actions</h3>
+		
+		<%=link_to "Import Advisors", new_advisor_path %><br />
+		<%=link_to "Create Advising Period/Import Students", new_advising_period_path %>
+	</div>
 </div>
-<%= link_to 'New User', new_user_path %>
-
-<%=link_to "Import Advisors", new_advisor_path %>
-<%=link_to "Create Advising Period/Import Students", new_advising_period_path %>
-
-<table class="tablesorter">
-	<thead>
-		<tr>
-			<th>
-				Email
-			</th>
-			<th>
-				Last Name
-			</th>
-			<th>
-				First Name
-			</th>
-			<th>
-				Role
-			</th>
-			<% if params[:controller] == 'calendars' %>
+<div class="clear"></div>
+<%unless params[:controller] == 'users'%>
+	<table class="tablesorter">
+		<thead>
+			<tr>
 				<th>
-					User Registration Ability
+					Email
 				</th>
-			<% end %>
 				<th>
+					Last Name
 				</th>
-		</tr>
-	</thead>
-	<%= render :partial => 'user', :collection => @users %>
-</table>
+				<th>
+					First Name
+				</th>
+				<th>
+					Role
+				</th>
+				<% if params[:controller] == 'calendars' %>
+					<th>
+						User Registration Ability
+					</th>
+				<% end %>
+					<th>
+					</th>
+			</tr>
+		</thead>
+		<%= render :partial => 'user', :collection => @users %>
+	</table>
+<% end %>
