@@ -441,7 +441,7 @@ title = this.vars.title.appendTo(this.element);
 
 				diag.dialog({
 									modal: true,
-									width: 500,
+									width: 600,
 									buttons: {
 										"Delete this slot": function() {
 											if(confirm("Are you sure you want to delete this slot?")){
