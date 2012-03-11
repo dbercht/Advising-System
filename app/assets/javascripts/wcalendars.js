@@ -22,7 +22,7 @@
 			startHour: 8,
 			endHour: 18,
 			slotTime: 15,
-			reloadInterval: 60000,
+			reloadInterval: 30000,
 //Adjusting UTC time to EST time
 			EST_TIME: 5
     },
