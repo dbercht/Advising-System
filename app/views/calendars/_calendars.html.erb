@@ -25,7 +25,7 @@
 		</td>
 		<% if can? :edit, RegistrationAbility.where(:calendar_id => calendar.id, :user_id => params[:id]) %>
 			<td>
-				<%= link_to "Edit Student Registration Ability", edit_user_calendar_registration_ability_path(params[:id], calendar.id) %>
+				<%= link_to "Edit Student Registration Ability", advisor_calendar_registration_abilities_path(calendar.advisor, calendar.id) %>
 			</td>
 		<% end %>
 	<% end %>		
