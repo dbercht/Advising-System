@@ -10,6 +10,8 @@ AdvisingApplication::Application.routes.draw do
 			resource :registration_ability
 			resources :events do			
 				match 'update' => "events#update", :via => :post
+#Fixes for jquery ajax calls
+				match 'delete' => "events#destroy", :via => :post
 			end
 		end
 	end
