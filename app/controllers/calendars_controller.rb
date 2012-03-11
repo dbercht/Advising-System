@@ -40,12 +40,11 @@ class CalendarsController < ApplicationController
 		end
   end
 
-	def delete
+	def destroy
 		@user = User.find(params[:advisor_id])
 		@calendar = @user.calendars.find(params[:id])
-
 		@calendar.destroy
-		redirect_to root_url
+		redirect_to @user
 	end
 
 end
