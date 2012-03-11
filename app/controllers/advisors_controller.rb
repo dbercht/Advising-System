@@ -23,7 +23,7 @@ class AdvisorsController < UsersController
 				n = n+1
 			end
 		end
-		render :text => params.to_json#arr.join("<br />")
+		redirect_to root_url
 	end
 
   def show
