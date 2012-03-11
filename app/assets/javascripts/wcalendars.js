@@ -660,7 +660,7 @@ title = this.vars.title.appendTo(this.element);
 		_getDayToString: function (day){
 			var d = this._getDay(day);
 			var dayVar = 0, monthVar = 1;
-			return this._getDateName(d.getDay(), dayVar)+ "<br />" +(d.getDate()) + " " + this._getDateName(d.getMonth(), monthVar);
+			return this._getDateName(d.getDay(), dayVar)+ " " +(d.getDate()) + " " + this._getDateName(d.getMonth(), monthVar);
 		},
 
 		//get day given the offset and the options.startDate
