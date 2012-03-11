@@ -1,7 +1,7 @@
 require 'csv'
 
 class AdvisingPeriodsController < ApplicationController
-	load_and_authorize_resource
+	load_and_authorize_resource :registration_ability
 
 	def new
 	end
