@@ -10,7 +10,7 @@ class AdvisorsController < UsersController
 		if request.post? && params[:file].present?
 			Advisor.destroy_all
 			data = params[:file].read
-
+			pw = params[:password]
 			err = []
 			n = 0
 			past_advisor = ""
@@ -18,7 +18,7 @@ class AdvisorsController < UsersController
 			#Finding if all advisors are present
 	    CSV.parse(data) do |row|
 				unless (n == 0)
-					@a = Advisor.create(:last_name => row[0].to_s.strip, :first_name => row[1].strip, :email => row[2].strip, :password => 'advising_system', :password_confirmation => 'advising_system')
+					@a = Advisor.create(:last_name => row[0].to_s.strip, :first_name => row[1].strip, :email => row[2].strip, :password => p, :password_confirmation => p)
 				end
 				n = n+1
 			end

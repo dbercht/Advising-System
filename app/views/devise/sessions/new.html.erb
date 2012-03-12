@@ -1,10 +1,5 @@
-<script>
-	jQuery(document).ready(function(){
-		$('#tabs').tabs();
-	});
-</script>
 
-	<div id='devise' >
+	<div id='devise'  class='ui-corner-all' >
 	<h2>Login</h2>
 	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 		<div><%= f.label :email %><br />
@@ -18,15 +13,13 @@
 
 	</div>
 
-<div id="tabs" style="width:30%;margin:15px auto;">
-	<ul>
-		<li><a href="#tabs-1">Students</a></li>
-		<li><a href="#tabs-2">Advisors</a></li>
-	</ul>
+<div id="tabs" class='ui-corner-all' >
 	<div id="tabs-1">
+		<h3>Students</h3>
 		<p>To login, use your student.umass.edu email and your 8-digit student id as a password.</p>
 	</div>
 	<div id="tabs-2">
+		<h3>Advisors</h3>
 		<p>Please follow the instructions provided to you by the system administrator.</p>
 	</div>
 	

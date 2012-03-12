@@ -1,5 +1,5 @@
 <h2>Creating an advising Period</h2>
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'Back', root_url %>
 <script>
 $(document).ready(function() 
     { 
@@ -11,6 +11,7 @@ $(document).ready(function()
 }); 
   
 </script>
+<div id="user-form">
 <% if @advisors %>
 	<% if flash[:error] %>
 		Please modify the file to fix the following errors.
@@ -140,3 +141,4 @@ $(document).ready(function()
 	</tr>
 </table>
 <% end %>
+</div>

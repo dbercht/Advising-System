@@ -10,7 +10,6 @@ class EventsController < ApplicationController
 		render :json => @events.as_json(:include => [:user])
   end
 
-
 	def create
 		@calendar = Calendar.find(params[:calendar_id])
 		@event = @calendar.events.create(params[:event])

@@ -36,6 +36,8 @@
 						controlBar: jQuery("<div id='ui-advising-calendar-main-bar' />" ),
 						title: jQuery("<div id='ui-advising-calendar-title'><h2></h2></div>" ),
 						shadow: jQuery("<div class='ui-advising-calendar-shadow' />" ),
+						helpButton: jQuery("<button id='help-button'>Help </ button>"),
+						help: jQuery("<div id='help' class='ui-widget ui-corner-all' />"),
 						count: 0,
 						slotsOpen: 0,
 						slotsTaken: 0,
@@ -126,8 +128,8 @@
 		},
 		
 		_updateSlotStats: function(open, taken){
-			jQuery(this.vars.stats).find('.ui-advising-stats-slots-open').text(open+taken);
-			jQuery(this.vars.stats).find('.ui-advising-stats-slots-taken').text(taken);
+	//		jQuery(this.vars.stats).find('.ui-advising-stats-slots-open').text(open+taken);
+		//	jQuery(this.vars.stats).find('.ui-advising-stats-slots-taken').text(taken);
 			
 		},
 
@@ -144,51 +146,94 @@
 		
 		//Renders assistant ajax, dialog, and form elements
 		_renderAssistantElements: function(){
-				loading = this.vars.loading
+
+			loading = this.vars.loading
 				.ajaxStart(function() {
-					$(this).find('img').show();
-					$(this).find('p:first').text('Loading');				})
+					$(this).show();
+				})
 				.ajaxStop(function() {
-					$(this).find('img').hide();
-					$(this).find('p:first').text('');
+					$(this).hide();
 				})
 				.appendTo(this.element);
+
 			dialog = this.vars.dialog
 				.appendTo(this.element);
 			form = this.vars.form
 				.appendTo(this.element);
-			
+			help = this.vars.help
+				.appendTo(this.element).append(jQuery("<h2/>").text("Help"));
+			helpButton = this.vars.helpButton
+				.appendTo(this.element).button().hover(function () {
+						helpButton.html("<span class='ui-button-text'>Hide</span>");
+						help.show();
+					}, function () {
+						helpButton.html("<span class='ui-button-text'>Help</span>");
+						help.hide();
+    			});
+
+			helpText = jQuery("<p />");
+			if(this.options.is_owner){
+				$ul = jQuery( "<ul />");
+				$li1 = jQuery( "<li>Click on desired timeslot to create an open time slot.</li>" );
+				$li2 = jQuery( "<li>Click on open/taken appointment to edit the time slot.</li>" );
+				$ul.append($li1).append($li2);
+				helpText.append($ul);
+			}else{
+				$ul = jQuery( "<ul />");
+				$li1 = jQuery( "<li>Click on open timeslot to create an appointment.</li>" );
+				$ul.append($li1);
+				helpText.append($ul);
+			}
+			help.append(helpText);
+			help.hide();
+
 			controlBar = jQuery('#nav-bar');
 //this.vars.controlBar
 //				.appendTo(this.element);
 			
 
+				
 			if(this.options.is_owner){
 				listView = this.vars.listViewButton
 					.appendTo(controlBar);
-				listView.find('button').text("View as List");
-				listView.find('button').bind('click', {context: this}, this.listViewToggle);
+				listView.find('button').text("View Appointment List");
+				listView.find('button').bind('click', {context: this, list: true}, this.listViewToggle);
 				listView.find('button').button(); 
+				emailView = listView.clone().appendTo(controlBar);
+				emailView.find('button').text("View Email List");
+				emailView.find('button').bind('click', {context: this, list: false}, this.listViewToggle);
+				emailView.find('button').button();
 			}
-			stats = this.vars.stats
+
+
+			//stats = this.vars.stats
+			//	.appendTo(controlBar);
+			stats= jQuery("<div id='ui-advising-calendar-stats'>This calendar will refresh every "+this.options.reloadInterval/1000 + " seconds.</div>")
 				.appendTo(controlBar);
+
 
 			controlBar.append($("<div class='clear' />"));
 			controlBar.width("100px");
+
 title = this.vars.title.appendTo(this.element);
 				title.find("h2")
 				.text(this.options.title);
+
+	
 
 		},
 
 		listViewToggle: function(event){
 			var context = event.data.context;	
+			var list = event.data.list;
 			var registrationAbilitiesURL = document.URL + "/registration_abilities.json";
 
 					$noEventList = [];
+					$pastEventList = [];
+					$futureEventList = [];
 					var $n;
 
-			$info = $("<div />");
+			$info = $("<div class='diag-height'/>");
 			$table = $("<table id='ui-advising-calendar-registrations-info' />");
       $table.addClass('tablesorter');   
     	$head = $('<thead/>');
@@ -196,7 +241,7 @@ title = this.vars.title.appendTo(this.element);
     	$headRow.appendTo($head);
 			$head.appendTo($table);
 
-			str = [ 'Name', '# of Events', '# Allowed', 'Events' ];
+			str = [ 'Name', '# of Appt', '# Allowed', 'Appts' ];
 			for(var i = 0 ; i<str.length; i++){
 
 				$headR = $('<th/>');
@@ -229,10 +274,14 @@ title = this.vars.title.appendTo(this.element);
 							$td.text($events_allowed);
 							$td.appendTo($user);
 
-
+							var futE = true;
 						$.each(val.events, function(key, val) {
-							$clone = $user.clone();
+							var d = new Date(parseInt(val.starttime) - context.options.EST_TIME*60*60*1000);
 
+							$clone = $user.clone();
+							if(d < (new Date()) ){
+								futE = false;
+							}
 							$event = jQuery("<td/>");
 							$event.html(context._getDateFromMillisecondsTable(val.starttime));
 							$event.appendTo($clone);		
@@ -241,25 +290,36 @@ title = this.vars.title.appendTo(this.element);
 						if(val.events.length===0){
 							$td.addClass('ui-advising-information-event');
 							$event = jQuery("<td '/>");
-							$event.html("No events");
+							$event.html("No appointments");
 							$event.appendTo($user);
 
 							$user.appendTo($table_r);
 							$noEventList.push(val.user.email);
+						}else{
+							if(futE){
+									$futureEventList.push(val.user.email);
+							}else{
+									$pastEventList.push(val.user.email);
+							}
+							
 						}
 					});
+			
 				$table_r.tablesorter();
-				$noE = jQuery("<div class='ui-advising-calendar-no-event-list' />");
-				var $noEText = jQuery("<p style='text-align:center;'/>");
-				if($noEventList.length != 0){
-				$noEText.html("You have " + $noEventList.length + " student" + ($noEventList.length==1?'':'s') +" without events.<br /> Here are their e-mails:<br /> "+ $noEventList.join(", "));
+				if(list){
+					$table.appendTo($info);
 				}else{
-					$noEText.html("All users registered to this calendar have at least one event")
- 				}
-				$table.appendTo($info);
-				$noE.html($noEText);
-				$noE.appendTo($info);
-				
+				var $noE = jQuery("<div class='ui-advising-calendar-no-event-list' />");
+				var $nE = jQuery("<button>No events list ("+$noEventList.length + ")</button>").click(function(){ $emailText.html($noEventList.join(", ")) });
+				var $fE = jQuery("<button>Future events list ("+$futureEventList.length + ")</button>").click(function(){ $emailText.html($futureEventList.join(", ")) });
+				var $pE = jQuery("<button>Past events list ("+$pastEventList.length + ")</button>").click(function(){ $emailText.html($pastEventList.join(", ")) });
+				var $emailText = jQuery("<p style='text-align:center;'/>");
+
+					$info.append($nE).append($fE).append($pE);
+					$noE.html($emailText);
+					$noE.appendTo($info);
+			
+				}
 				context.displayMessage("List View", $info);
 			});
 
@@ -268,13 +328,11 @@ title = this.vars.title.appendTo(this.element);
 		},
 	
 		closeAjaxLoadingWidget: function(el){
-					$(el).find('img').hide();
-					$(el).find('p:first').text('Ready');
+					$(el).hide();
 		},
 	
 		openAjaxLoadingWidget: function(el){			
-					$(el).find('img').show();
-					$(el).find('p:first').text('Loading');
+					$(el).show();
 		},
 		
 		_getUserInformation: function(){
@@ -407,6 +465,16 @@ title = this.vars.title.appendTo(this.element);
 			var context = event.data.context;			
 			diag = context.vars.dialog;
 			diag.html("");
+
+			loading = context.vars.loading
+				.ajaxStart(function() {
+					$(this).show();
+				})
+				.ajaxStop(function() {
+					$(this).hide();
+				})
+				.appendTo(diag);
+
 			$table = jQuery("<table/>");
 			$row = jQuery("<tr/>");
 			$row.appendTo($table);
@@ -460,7 +528,7 @@ title = this.vars.title.appendTo(this.element);
 														}else{
 															context.vars.slotsOpen--;
 														}
-														ts.remove();
+														ts.parent().find("div").remove();
 														form.remove();
 														$( diag ).dialog( "destroy" );
 														

@@ -6,6 +6,8 @@
 			<%if @registration_ability.new_record? %>
 				<% formUrl = {:url => advisor_calendar_registration_abilities_path(params[:advisor_id], params[:calendar_id])} %>
 			<% else %>
+
+<%=link_to "Back", advisor_calendar_url(@registration_ability.calendar.advisor, @registration_ability.calendar) %>
 				<% formUrl = {:url => advisor_calendar_registration_ability_path(params[:advisor_id], params[:calendar_id], @registration_ability), :method => 'put'} %>
 			<% end %>
 	<%= form_for([@user, @advising_period, @registration_ability], formUrl) do |f| %>
@@ -29,6 +31,10 @@
 				<br />		
 				<%= f.select :user_id, @students.map{ |p| [p.last_name << ", " << p.first_name, p.id] } %>
 			</td>
+	 	</tr>
+	</table>
+
+ 				<%= f.submit  "Add" %>
 			<% else %>
 				<td>
 					<%= f.label :number_of_events, "Number of events allowed for " << @registration_ability.user.first_name << " " << @registration_ability.user.last_name %>
@@ -36,12 +42,11 @@
 				<td>
 					<%= f.number_field :number_of_events %>
 				</td>
-			<% end %>
-			<td>
-				<%= f.submit  "Add" %>
-			</td>
 		</tr>
 	</table>
+				<%= f.submit  "Update" %>
+			<% end %>
+
 <% end %>
 <div class='clear'></div>
 </div>

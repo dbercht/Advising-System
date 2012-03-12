@@ -1,26 +1,35 @@
+
+<div id="user-form" class='ui-corner-all'>
 <h2>Creating advisors from csv</h2>
 Before uploading a file, make sure that:
-<ol>
+<ol style="text-align:left;">
 	<li>First row is titled 'last_name'</li>
 	<li>Second row is titled 'first_name'</li>
 	<li>Third row is titled 'email'</li>
 </ol>
 
-All advisors will be created with the default password 'advising_system', and their logins are their email addresses.
+All advisors will be created with the default password as defined in the form
 
 <%= form_tag advisors_url, :multipart => true do %>
-	<table>
+	<table style="margin:0px auto;">
 		<tr>
+				<td>
+				<%=label :password, 'Default Password' %>
+				</td><td>
+				<%= text_field :password, :value => "advising_system"%> 
+				</td></tr><tr>
 				<td>
 				<%=label :file, 'Advisor CSV file' %>
 				</td><td>
 				<%= file_field_tag :file%> 
 				</td>
 			</tr>
-			<tr>
-				<td>
-				<%= submit_tag 'Submit CSV', :confirm => "This will delete all current advisors. Are you sure you want to continue?"%>
-				</td>
-			</tr>
 	</table>
+<br />
+				<%= submit_tag 'Submit CSV', :confirm => "This will delete all current advisors. Are you sure you want to continue?"%>
 <% end %>
+<br />
+<%= link_to "Back", root_url %>
+</div>
+
+

@@ -20,7 +20,7 @@
 <div id='nav-bar'>
 		<%= user_history %>
 		<% if can? :edit, RegistrationAbility %>
-			<%= link_to "View Students Registered to this Calendar", advisor_calendar_registration_abilities_path(@calendar.advisor.id, @calendar.id) %>
+			<%= link_to "View Students List", advisor_calendar_registration_abilities_path(@calendar.advisor.id, @calendar.id) %>
 		<% end %>
 </div>
 <div class="clear"></div>

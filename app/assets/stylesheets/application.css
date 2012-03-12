@@ -19,7 +19,6 @@ body{
 h2, h3, h4{
 text-align:center;
 padding: 2px;
-text-decoration:underline;
 }
 
 button{
@@ -79,6 +78,21 @@ button{
 	background: -ms-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
 	background: linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+#user-form{
+	width: 50%;
+	margin: 0px auto;
+	border: 1px solid #ddd;
+	text-align:center;
+	padding: 15px;
+}
+
+#user-form ul, #user-form ol{
+	text-align: left;
+}
+#user-form img{
+	width: 90%;
 }
 
 .user-nav{
@@ -141,9 +155,10 @@ button{
 }
 
 #devise, #tabs{
-	width: 30%;
+	width: 400px;
 	text-align:center;
-	margin: 0px auto;;
+	margin: 0px auto;
+	border: 1px solid #ddd;
 }
 
 #devise_flashes{

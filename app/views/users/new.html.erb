@@ -1,5 +1,5 @@
 <h2>Sign up</h2>
-
+<div id="user-form" class='ui-corner-all'>
 <%= form_for(@user, :url => '/users/admin_create', :method => 'post') do |f| %>
  <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -29,6 +29,9 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.submit "Create user" %></div>
 <% end %>
+<br />
+<%=link_to 'Back', root_url%>
+</div>
 

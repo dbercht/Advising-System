@@ -7,12 +7,10 @@
 		margin: 5px auto;
 	}
 	#ui-advising-calendar-loading{
-		position: absolute;
-		z-index: 100;
-		top: 0;
-		right: 5px;
+		position: fixed;
 		width: 70px;
 		height: 30px;
+		background: white;
 	}
 	#ui-advising-calendar-loading p{
 		float:right;
@@ -21,10 +19,10 @@
 	}
 	#ui-advising-calendar-loading img{
 		float:left
-		border: 0px;
-		background:url('<%=asset_path 'ajax-loader.gif' %>');
-		height: 16px;
-		width: 16px;
+		border: 0px solid white;
+		background:url(images/ajax-loader.gif);
+		height: 20px;
+		width: 20px;
 	}
 	table#ui-advising-calendar-header{
 		margin: 0px auto;
@@ -97,12 +95,40 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', end
 	}
 
 	div#ui-advising-calendar-list-button{
-		float:right;
 		bottom: 0px;
+		display: inline-block;
+		
+
+
+	}
+
+	#help{
+		position: fixed;
+		top: 30%;
+		left: 10%;		
+		background: #eee;
+		padding-bottom: 5px;
+		padding-right: 15px;
+		text: blue;
+		border: 1px solid #ddd;
+	}
+
+	#help-button{
+		height: 50px;
+		margin: 0px auto;
+		position: fixed;
+		top: 30%;
+		left: 0%;
+	}
+	.diag-height{
+		height: 450px;
+		overflow: auto;
 	}
 
 	#ui-advising-calendar-title {
 		text-align:center;
+		margin: 0px auto;
+		width: 30%;
 	}
 
 	div#ui-advising-calendar-stats{

@@ -33,7 +33,7 @@
 	<% e = 0%>
 	<%@registration_abilities.each{ |r| e = e + r.events.size} %>
 	<%if e > 0 %>
-		<h2>Upcoming events</h2>
+		<h2>Upcoming appointments</h2>
 		<ol>
 			<%@registration_abilities.each do |r|%>
 				<% r.events.each do |e| %>
@@ -45,7 +45,7 @@
 			<% end %>
 		</ol>
 		<% else %>
-	<h2>No events</h2>
+	<h2>No appointments</h2>
 				<div class="ui-widget">
 					<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
 						<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
