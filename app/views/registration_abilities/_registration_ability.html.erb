@@ -1,6 +1,7 @@
+<%if registration_ability.user %>
 <tr>
 	<td>
-			<%="#{registration_ability.user.last_name}, #{registration_ability.user.first_name}"%> 
+			<%="#{registration_ability.user.to_title}"%> 
 	</td>
 
 	<td>
@@ -16,3 +17,4 @@
 	</td>
 <%end%>
 </tr>
+<% end %>

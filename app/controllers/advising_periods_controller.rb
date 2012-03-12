@@ -38,7 +38,6 @@ class AdvisingPeriodsController < ApplicationController
 				n = n + 1
 			end	
 			#So if no errors were found, load the student data into the system
-			Student.delete_all
 			if(err.length == 0 )
 				n = 0
 				past_advisor = ""
@@ -87,7 +86,7 @@ class AdvisingPeriodsController < ApplicationController
 		if(err.length > 0)
 			render 'new', :error => err
 		else 
-			redirect_to root_url
+			redirect_to root_url, :alert => "Successfully created advising period"
 		end
 	end
 end

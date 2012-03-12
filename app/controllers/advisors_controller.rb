@@ -8,7 +8,7 @@ class AdvisorsController < UsersController
 
 	def create
 		if request.post? && params[:file].present?
-			Advisor.delete_all
+			Advisor.destroy_all
 			data = params[:file].read
 
 			err = []
@@ -23,7 +23,7 @@ class AdvisorsController < UsersController
 				n = n+1
 			end
 		end
-		redirect_to root_url
+		redirect_to root_url, :alert => "Successfully added advisors"
 	end
 
   def show
