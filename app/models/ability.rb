@@ -30,11 +30,11 @@ class Ability
 			can :read, Event, :calendar_id => user.open_calendar_ids
 			can :update, Event, :id => user.editable_slot_ids
 
-			cannot [:index, :new, :create], User
 			can :read, User, :id => user.id
+			cannot [:index, :new, :create], User
 
-			cannot [:index, :new, :create], Student
 			can :manage, Student, :id => user.id
+			cannot [:index, :new, :create], Student
 		end
   end
 end
