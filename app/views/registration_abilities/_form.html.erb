@@ -7,7 +7,6 @@
 				<% formUrl = {:url => advisor_calendar_registration_abilities_path(params[:advisor_id], params[:calendar_id])} %>
 			<% else %>
 
-<%=link_to "Back", advisor_calendar_url(@registration_ability.calendar.advisor, @registration_ability.calendar) %>
 				<% formUrl = {:url => advisor_calendar_registration_ability_path(params[:advisor_id], params[:calendar_id], @registration_ability), :method => 'put'} %>
 			<% end %>
 	<%= form_for([@user, @advising_period, @registration_ability], formUrl) do |f| %>
@@ -46,7 +45,10 @@
 	</table>
 				<%= f.submit  "Update" %>
 			<% end %>
-
+<%if !@registration_ability.new_record?%>
+<%=link_to "Back", advisor_calendar_url(@registration_ability.calendar.advisor, @registration_ability.calendar) %>
+<%end%>
 <% end %>
 <div class='clear'></div>
 </div>
+

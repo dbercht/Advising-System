@@ -13,6 +13,7 @@
 <%if current_user.role?(:admin) %>
 	<div id="nav-bar">
 		<%= link_to 'Home', users_path %>
+		<%= link_to 'Edit User', edit_user_path(@advisor) %>
 	</div>
 <% end %>
 <div class='clear'></div>

@@ -1,7 +1,11 @@
 <%if registration_ability.user %>
 <tr>
 	<td>
-			<%="#{registration_ability.user.to_title}"%> 
+			<%if current_user.role?(:admin)%>
+				<%=link_to registration_ability.user.to_title, user_path(registration_ability.user)%>
+			<% else %>
+				<%="#{registration_ability.user.to_title}"%>
+			<% end %> 
 	</td>
 
 	<td>

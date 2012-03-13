@@ -1,4 +1,5 @@
-<h2>Sign up</h2>
+<%title 'New User' %>
+<h2>New user</h2>
 <div id="user-form" class='ui-corner-all'>
 <%= form_for(@user, :url => '/users/admin_create', :method => 'post') do |f| %>
  <% if @user.errors.any? %>

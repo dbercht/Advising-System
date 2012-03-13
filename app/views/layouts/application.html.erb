@@ -20,6 +20,7 @@
 			<div class='user-nav'>
 				<% if current_user %>
 					<%= current_user.to_title %>
+					<%=link_to 'Home', users_path, :class=>'header-button ' %>
 					<%=link_to 'Edit', edit_user_registration_path, :class=>'header-button ' %>
 					<%=link_to 'Logout', destroy_user_session_url, :method => :delete, :class=>'header-button' %>
 				<% else %>

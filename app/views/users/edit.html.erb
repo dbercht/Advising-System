@@ -1,5 +1,6 @@
-<h2>Edit </h2>
+<h2>Edit <%=@user.to_title%></h2>
 
+<div id="user-form" class='ui-corner-all'>
 <%= form_for(@user, :as => :user, :action => :update, :html => { :method => :put }) do |f| %>
  <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -32,3 +33,4 @@
 
 
 <%= link_to "Back", :back %>
+</div>

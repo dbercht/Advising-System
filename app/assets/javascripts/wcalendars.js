@@ -196,7 +196,7 @@
 			if(this.options.is_owner){
 				listView = this.vars.listViewButton
 					.appendTo(controlBar);
-				listView.find('button').text("View Appointment List");
+				listView.find('button').text("View Appointments List");
 				listView.find('button').bind('click', {context: this, list: true}, this.listViewToggle);
 				listView.find('button').button(); 
 				emailView = listView.clone().appendTo(controlBar);
@@ -249,11 +249,13 @@ title = this.vars.title.appendTo(this.element);
 				$headR.appendTo($headRow);
 			}
 
-			
+			var studentsRegistered = true;
 			//URL returns json of registration abilities with access to user information and all events linked to registration ability
 			$.getJSON(registrationAbilitiesURL, function(data) {
 				$table_r = $table;
-				
+				if(data.length == 0){
+					studentsRegistered = false;
+				}
 				$.each(data, function(key, val) {	
 						$user_name = val.user.last_name + ", " + val.user.first_name;
 						$n_events = val.events.length;
@@ -304,9 +306,12 @@ title = this.vars.title.appendTo(this.element);
 							
 						}
 					});
-			
-				$table_r.tablesorter();
+				if(!studentsRegistered){
+					context.displayMessage("Alert", jQuery("<p>No students registered to this calendar</p>"));
+					return ;
+				}
 				if(list){
+					$table_r.tablesorter();
 					$table.appendTo($info);
 				}else{
 				var $noE = jQuery("<div class='ui-advising-calendar-no-event-list' />");

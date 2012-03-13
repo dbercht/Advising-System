@@ -17,13 +17,13 @@ class Event < ActiveRecord::Base
 	end
 
 	def after_now?
-		if((Time.at(starttime.to_i/1000)+5.hours) > (Time.now))
+		if((Time.at(starttime.to_i/1000)).getgm > (Time.now))
 			return true
 		end
 	end
 	
 	def event_starttime
-		return (Time.at(starttime.to_i/1000)+5.hours).strftime("%l:%M %P on %a %b %e, %Y")
+		return (Time.at(starttime.to_i/1000).getgm).strftime("%l:%M %P on %a %b %e, %Y")
 	end
 
 end

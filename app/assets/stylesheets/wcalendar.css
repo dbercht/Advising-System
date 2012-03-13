@@ -17,6 +17,7 @@
 		width: 50px;
 		margin: 0px;
 	}
+
 	#ui-advising-calendar-loading img{
 		float:left
 		border: 0px solid white;
@@ -89,6 +90,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', end
 		height: 25%;
 		border-bottom: 1px dotted #dde;
 		text-align:center;
+		cursor: pointer;
 	}
 	div.ui-advising-calendar-time-slot.odd-slot{
 		background: #fafafa;
